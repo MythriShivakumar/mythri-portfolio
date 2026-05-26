@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythri Shivakumar - Full Stack & AI/ML Engineer</title>
+<meta name="description" content="Portfolio of Mythri Shivakumar, Full Stack & AI/ML Engineer specializing in multi-agent systems, LangGraph, and production AI.">
+<meta property="og:title" content="Mythri Shivakumar - The Pit Wall Portfolio">
+<meta property="og:description" content="Pushing systems to the limit. Lap after lap.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--black:#0A0A0A;--red:#E8002D;--red2:#FF6B6B;--white:#FFFFFF;--gray:#9CA3AF;
+--card:#1A1A1A;--border:rgba(232,0,45,0.3);--font-head:'Exo 2',sans-serif;
+--font-mono:'JetBrains Mono',monospace;--font-body:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);cursor:none;overflow-x:hidden}
+#cursor{position:fixed;width:20px;height:20px;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor::before,#cursor::after{content:'';position:absolute;background:var(--red)}
+#cursor::before{width:100%;height:2px;top:50%;transform:translateY(-50%)}
+#cursor::after{width:2px;height:100%;left:50%;transform:translateX(-50%)}
+#cursor-dot{position:fixed;width:6px;height:6px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s}
+/* LIGHTS OUT OVERLAY */
+#lights-out{position:fixed;inset:0;background:#000;z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+#lights-out h2{font-family:var(--font-mono);color:var(--red);letter-spacing:8px;font-size:14px}
+.f1-lights{display:flex;gap:16px}
+.f1-light{width:36px;height:36px;border-radius:50%;background:#2a0000;border:2px solid #3a0000;transition:background 0.15s,box-shadow 0.15s}
+.f1-light.on{background:var(--red);box-shadow:0 0 20px var(--red),0 0 40px var(--red)}
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(10,10,10,0.85);border-bottom:1px solid var(--border);padding:0 40px}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:var(--font-mono);font-size:13px;color:var(--red);letter-spacing:2px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:11px;color:var(--gray);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color 0.2s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--white);border-bottom-color:var(--red)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--white);display:block;transition:0.3s}
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:80px 80px 40px}
+.hero-bg{position:absolute;inset:0;
+background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.02) 40px,rgba(255,255,255,0.02) 41px),
+repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,0.02) 40px,rgba(255,255,255,0.02) 41px),
+repeating-linear-gradient(45deg,rgba(0,0,0,0) 0,rgba(0,0,0,0) 5px,rgba(20,20,20,0.8) 5px,rgba(20,20,20,0.8) 10px);}
+.hero-content{position:relative;z-index:1;max-width:900px}
+.hero-label{font-family:var(--font-mono);font-size:11px;color:var(--red);letter-spacing:4px;margin-bottom:16px}
+.hero-name{font-family:var(--font-head);font-size:clamp(48px,8vw,96px);font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:16px}
+.hero-name span{color:var(--red)}
+#hero-typing{font-family:var(--font-mono);font-size:clamp(16px,2.5vw,24px);color:var(--gray);min-height:30px;margin-bottom:24px}
+#hero-typing .cursor-blink{display:inline-block;width:3px;height:1.1em;background:var(--red);margin-left:2px;animation:blink 0.7s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-tagline{font-family:var(--font-head);font-size:clamp(14px,2vw,18px);color:var(--gray);margin-bottom:48px;font-weight:400}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.05);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.btn:hover::after{transform:scaleX(1)}
+.btn-primary{background:var(--red);color:var(--white)}
+.btn-primary:hover{background:#c0001f;box-shadow:0 0 30px rgba(232,0,45,0.4)}
+.btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2)}
+.btn-secondary:hover{border-color:var(--red);color:var(--red)}
+/* STATS BAR */
+.stats-bar{display:flex;gap:0;margin-top:80px;border:1px solid var(--border);overflow-x:auto}
+.stat-item{flex:1;min-width:140px;padding:20px 24px;border-right:1px solid var(--border);position:relative}
+.stat-item:last-child{border-right:none}
+.stat-value{font-family:var(--font-mono);font-size:clamp(20px,3vw,32px);font-weight:600;color:var(--red);display:block}
+.stat-label{font-family:var(--font-mono);font-size:9px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-top:4px;display:block}
+/* SECTIONS */
+section{padding:100px 80px;position:relative}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);margin:0 80px;opacity:0.6}
+.sector-label{font-family:var(--font-mono);font-size:10px;color:var(--red);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:var(--font-head);font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-1px;margin-bottom:60px}
+/* ABOUT */
+#about .bio{font-size:18px;line-height:1.8;color:var(--gray);max-width:700px;font-weight:400}
+#about .bio strong{color:var(--white)}
+/* EXPERIENCE */
+.exp-card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--red);padding:32px;margin-bottom:24px;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--red),transparent);opacity:0}
+.exp-card:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.exp-card:hover::before{opacity:1}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.exp-company{font-family:var(--font-head);font-size:22px;font-weight:700}
+.exp-meta{text-align:right}
+.exp-role{font-family:var(--font-mono);font-size:12px;color:var(--red);letter-spacing:1px}
+.exp-date{font-family:var(--font-mono);font-size:11px;color:var(--gray);letter-spacing:1px;margin-top:4px}
+.exp-location{font-family:var(--font-mono);font-size:10px;color:var(--gray);letter-spacing:1px}
+.exp-bullets{list-style:none;padding:0}
+.exp-bullets li{padding:6px 0 6px 20px;position:relative;color:var(--gray);font-size:14px;line-height:1.6}
+.exp-bullets li::before{content:'▶';position:absolute;left:0;color:var(--red);font-size:8px;top:10px}
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.proj-card{background:var(--card);border:1px solid rgba(255,255,255,0.06);padding:32px;position:relative;overflow:hidden;transition:all 0.3s}
+.proj-card.gold{border-color:rgba(212,175,55,0.4)}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.proj-card:hover .speed-lines{opacity:1}
+.speed-lines{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;opacity:0;transition:opacity 0.3s;background:repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(232,0,45,0.03) 30px,rgba(232,0,45,0.03) 31px)}
+.proj-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.proj-tag.red{color:var(--red)}
+.proj-tag.gold{color:#D4AF37}
+.proj-name{font-family:var(--font-head);font-size:22px;font-weight:700;margin-bottom:8px}
+.proj-desc{font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.6}
+.proj-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.proj-stat{font-family:var(--font-mono);font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,0.1);color:var(--gray)}
+.proj-card.gold .proj-stat{border-color:rgba(212,175,55,0.3);color:#D4AF37}
+.proj-stack{font-family:var(--font-mono);font-size:10px;color:var(--gray);letter-spacing:1px}
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.skill-group{background:var(--card);border:1px solid rgba(255,255,255,0.06);padding:28px}
+.skill-group-title{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:20px}
+.skill-item{margin-bottom:14px}
+.skill-name{font-family:var(--font-mono);font-size:11px;color:var(--gray);margin-bottom:6px;display:flex;justify-content:space-between}
+.skill-bar{height:2px;background:rgba(255,255,255,0.08);position:relative;overflow:hidden}
+.skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red2));width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.skill-tag{font-family:var(--font-mono);font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,0.08);color:var(--gray);transition:all 0.2s}
+.skill-tag:hover{border-color:var(--red);color:var(--red)}
+/* EDUCATION */
+.edu-card{background:var(--card);border:1px solid rgba(255,255,255,0.06);padding:32px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.edu-school{font-family:var(--font-head);font-size:20px;font-weight:700}
+.edu-degree{font-family:var(--font-mono);font-size:12px;color:var(--red);margin-top:4px}
+.edu-meta{font-family:var(--font-mono);font-size:11px;color:var(--gray);text-align:right}
+.edu-gpa{font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--red)}
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.cert-card{background:var(--card);border:1px solid rgba(255,255,255,0.06);padding:20px;transition:all 0.2s}
+.cert-card:hover{border-color:var(--red)}
+.cert-icon{font-size:24px;margin-bottom:8px}
+.cert-name{font-family:var(--font-mono);font-size:12px;color:var(--white);line-height:1.4}
+/* CONTACT */
+#contact{background:var(--card);text-align:center}
+.contact-grid{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:48px}
+.contact-link{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;transition:all 0.2s;padding:20px}
+.contact-link:hover{transform:translateY(-4px)}
+.contact-label{font-family:var(--font-mono);font-size:9px;color:var(--gray);letter-spacing:3px;text-transform:uppercase}
+.contact-value{font-family:var(--font-mono);font-size:12px;color:var(--white)}
+.contact-link:hover .contact-value{color:var(--red)}
+.checkered{font-size:48px;margin-bottom:24px}
+/* CHATBOT */
+#team-radio-btn{position:fixed;bottom:32px;right:32px;z-index:5000;background:var(--red);border:none;width:64px;height:64px;border-radius:50%;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(232,0,45,0.4);animation:pulse-ring 2s infinite}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(232,0,45,0.4)}70%{box-shadow:0 0 0 20px rgba(232,0,45,0)}100%{box-shadow:0 0 0 0 rgba(232,0,45,0)}}
+#team-radio-btn svg{width:24px;height:24px;fill:none;stroke:white;stroke-width:2}
+#team-radio-label{font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,0.8);letter-spacing:1px;margin-top:2px}
+#chatbot-panel{position:fixed;bottom:110px;right:32px;width:400px;height:550px;background:#0D0D0D;border:1px solid rgba(255,255,255,0.08);border-top:2px solid var(--red);display:none;flex-direction:column;z-index:5000;box-shadow:0 20px 60px rgba(0,0,0,0.8);animation:slideUp 0.3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.chat-header{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between}
+.chat-header-title{font-family:var(--font-mono);font-size:12px;color:var(--white);letter-spacing:1px}
+.chat-close{background:none;border:none;color:var(--gray);cursor:pointer;font-size:18px;line-height:1}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-track{background:transparent}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+.chat-msg{display:flex;flex-direction:column;gap:4px}
+.chat-msg-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px}
+.chat-msg-label.driver{color:var(--red)}
+.chat-msg-label.pitwall{color:var(--gray)}
+.chat-msg-bubble{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:0}
+.chat-msg.user .chat-msg-bubble{background:rgba(232,0,45,0.1);border-left:2px solid var(--red);color:var(--white)}
+.chat-msg.ai .chat-msg-bubble{background:rgba(255,255,255,0.04);border-left:2px solid rgba(255,255,255,0.1);color:var(--gray)}
+.chat-starters{display:flex;flex-direction:column;gap:8px;padding:0 16px 16px}
+.chat-starter{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);font-family:var(--font-mono);font-size:10px;color:var(--gray);padding:10px 14px;text-align:left;cursor:pointer;transition:all 0.2s}
+.chat-starter:hover{border-color:var(--red);color:var(--red)}
+.chat-input-row{display:flex;border-top:1px solid rgba(255,255,255,0.06);padding:12px}
+#chat-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font-mono);font-size:12px;color:var(--white);resize:none;line-height:1.4}
+#chat-send{background:var(--red);border:none;padding:8px 16px;font-family:var(--font-mono);font-size:10px;color:var(--white);letter-spacing:2px;cursor:pointer;transition:background 0.2s;white-space:nowrap}
+#chat-send:hover{background:#c0001f}
+.typing-indicator{display:flex;gap:4px;padding:10px 14px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(255,255,255,0.1);width:fit-content}
+.typing-indicator span{width:6px;height:6px;background:var(--gray);border-radius:50%;animation:typing-dot 1s infinite}
+.typing-indicator span:nth-child(2){animation-delay:0.2s}
+.typing-indicator span:nth-child(3){animation-delay:0.4s}
+@keyframes typing-dot{0%,100%{transform:translateY(0);opacity:0.4}50%{transform:translateY(-4px);opacity:1}}
+/* API key handled server-side */
+/* ANIMATE ON SCROLL */
+.anim-fade{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.anim-fade.visible{opacity:1;transform:translateY(0)}
+/* MOBILE */
+@media(max-width:768px){
+body{cursor:auto}
+#cursor,#cursor-dot{display:none}
+nav{padding:0 20px}
+.nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:#0A0A0A;flex-direction:column;gap:0;border-bottom:1px solid var(--border)}
+.nav-links.open{display:flex}
+.nav-links a{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.hamburger{display:flex}
+#hero,section{padding:80px 24px 60px}
+.section-divider{margin:0 24px}
+.stats-bar{margin-top:48px}
+#chatbot-panel{width:calc(100vw - 40px);right:20px;bottom:100px}
+#team-radio-btn{right:20px;bottom:20px}
+}
+</style>
+</head>
+<body>
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+<!-- Lights Out Intro -->
+<div id="lights-out">
+<h2>RACE START SEQUENCE</h2>
+<div class="f1-lights">
+<div class="f1-light" id="l1"></div>
+<div class="f1-light" id="l2"></div>
+<div class="f1-light" id="l3"></div>
+<div class="f1-light" id="l4"></div>
+<div class="f1-light" id="l5"></div>
+</div>
+</div>
+<!-- NAV -->
+<nav id="main-nav">
+<div class="nav-inner">
+<div class="nav-logo">MS // PIT WALL</div>
+<ul class="nav-links" id="nav-links">
+<li><a href="#about">S1 // ABOUT</a></li>
+<li><a href="#experience">S2 // XP</a></li>
+<li><a href="#projects">S3 // PROJ</a></li>
+<li><a href="#skills">S4 // SKILLS</a></li>
+<li><a href="#education">S5 // EDU</a></li>
+<li><a href="#contact">CONTACT</a></li>
+</ul>
+<div class="hamburger" id="hamburger" onclick="toggleNav()">
+<span></span><span></span><span></span>
+</div>
+</div>
+</nav>
+<!-- HERO -->
+<section id="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<div class="hero-label">// DRIVER PROFILE - INITIALIZING</div>
+<h1 class="hero-name">Mythri <span>Shivakumar</span></h1>
+<div id="hero-typing"><span id="typed-text"></span><span class="cursor-blink"></span></div>
+<p class="hero-tagline">Pushing systems to the limit. Lap after lap.</p>
+<div class="hero-ctas">
+<a href="#experience" class="btn btn-primary">▶ View Lap Times</a>
+<button class="btn btn-secondary" onclick="openTeamRadio()">📡 Open Team Radio</button>
+</div>
+</div>
+<div class="stats-bar">
+<div class="stat-item"><span class="stat-value" data-target="4" data-suffix="+ Yrs">0</span><span class="stat-label">Track Experience</span></div>
+<div class="stat-item"><span class="stat-value" data-target="40" data-suffix="%">0</span><span class="stat-label">Sprint Velocity Gained</span></div>
+<div class="stat-item"><span class="stat-value" data-target="95" data-suffix="%">0</span><span class="stat-label">Pipeline Reliability</span></div>
+<div class="stat-item"><span class="stat-value" data-target="42" data-suffix="%">0</span><span class="stat-label">Runtime Reduced</span></div>
+<div class="stat-item"><span class="stat-value" data-target="387" data-suffix="" data-display="3.87">0</span><span class="stat-label">Qualifying Score (GPA)</span></div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- ABOUT -->
+<section id="about">
+<div class="sector-label anim-fade">// SECTOR 01</div>
+<h2 class="section-title anim-fade">About</h2>
+<p class="bio anim-fade">I build AI systems that don't just work - <strong>they race</strong>. From architecting multi-agent RFP pipelines at <strong>Saccharo AI</strong> to modernizing COVID simulation engines at <strong>UB</strong>, I operate at the intersection of production engineering and bleeding-edge AI. <strong>Currently pushing laps at Saccharo AI, New York.</strong></p>
+</section>
+<div class="section-divider"></div>
+<!-- EXPERIENCE -->
+<section id="experience">
+<div class="sector-label anim-fade">// SECTOR 02</div>
+<h2 class="section-title anim-fade">Lap Times</h2>
+<div class="exp-card anim-fade">
+<div class="exp-header">
+<div><div class="exp-company">Saccharo AI</div></div>
+<div class="exp-meta">
+<div class="exp-role">Full Stack Engineer</div>
+<div class="exp-date">March 2026 – Present</div>
+<div class="exp-location">New York, NY</div>
+</div>
+</div>
+<ul class="exp-bullets">
+<li>Built multi-agent RFP intelligence system (LangGraph + Claude) - DAG across 50+ sources, <strong style="color:#fff">95% reliability</strong></li>
+<li>React/Next.js dashboard with SSE + Zustand for real-time procurement data streaming</li>
+<li>Integrated Claude into CI/CD pipeline - automated PR synthesis, refactoring, edge-case detection → <strong style="color:#fff">+40% sprint velocity</strong></li>
+<li>Context-aware prompt library + LLM-driven unit test generation → <strong style="color:#fff">-4 days time-to-production</strong></li>
+</ul>
+</div>
+<div class="exp-card anim-fade">
+<div class="exp-header">
+<div><div class="exp-company">University at Buffalo</div></div>
+<div class="exp-meta">
+<div class="exp-role">Research Associate</div>
+<div class="exp-date">Feb 2025 – March 2026</div>
+<div class="exp-location">Buffalo, NY</div>
+</div>
+</div>
+<ul class="exp-bullets">
+<li>Modernized COVIDHM simulation library: Claude 3.5 assisted R→Python migration → <strong style="color:#fff">42% faster runtime</strong></li>
+<li>Engineered autonomous tracing agents with LLM reasoning over graph data for quarantine decisions</li>
+</ul>
+</div>
+<div class="exp-card anim-fade">
+<div class="exp-header">
+<div><div class="exp-company">Infosys <span style="color:var(--gray);font-size:16px;font-weight:400">// Client: Apple</span></div></div>
+<div class="exp-meta">
+<div class="exp-role">Software Development Engineer</div>
+<div class="exp-date">Aug 2022 – Jul 2024</div>
+<div class="exp-location">Hyderabad, India</div>
+</div>
+</div>
+<ul class="exp-bullets">
+<li>Financial reconciliation platform: migrated 250+ legacy scripts → Python framework, <strong style="color:#fff">100% data integrity</strong></li>
+<li>AI-driven matching engine with fuzzy logic → <strong style="color:#fff">40% reduction in MTTD</strong></li>
+<li>Rule-based validation layer → <strong style="color:#fff">70% less manual intervention</strong></li>
+<li>99.9% uptime via Splunk/Grafana telemetry monitoring</li>
+</ul>
+</div>
+<div class="exp-card anim-fade">
+<div class="exp-header">
+<div><div class="exp-company">Freelance Software Consultant</div></div>
+<div class="exp-meta">
+<div class="exp-role">Independent Consultant</div>
+<div class="exp-date">Aug 2020 – Aug 2022</div>
+<div class="exp-location">Hyderabad, India</div>
+</div>
+</div>
+<ul class="exp-bullets">
+<li>5+ production Full-Stack MVPs (React.js, Node.js) for global clients - <strong style="color:#fff">10K+ MAU</strong></li>
+<li>Technical writing reaching <strong style="color:#fff">50K+ readers</strong> on distributed systems topics</li>
+</ul>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- PROJECTS -->
+<style>
+.proj-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+.proj-filter-btn{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;padding:8px 18px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--gray);cursor:pointer;text-transform:uppercase;transition:all 0.2s}
+.proj-filter-btn:hover{border-color:var(--red);color:var(--red)}
+.proj-filter-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
+.proj-card.hidden{display:none}
+.proj-card-sm{padding:20px}
+.proj-card-sm .proj-name{font-size:16px;margin-bottom:6px}
+.proj-card-sm .proj-desc{font-size:12px;margin-bottom:12px}
+.proj-period{font-family:var(--font-mono);font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:10px}
+.proj-bullets-sm{list-style:none;padding:0;margin-bottom:12px}
+.proj-bullets-sm li{font-size:11px;color:var(--gray);padding:3px 0 3px 14px;position:relative;line-height:1.5}
+.proj-bullets-sm li::before{content:"▶";position:absolute;left:0;color:var(--red);font-size:7px;top:6px}
+</style>
+<section id="projects">
+<div class="sector-label anim-fade">// SECTOR 03</div>
+<h2 class="section-title anim-fade">Constructor Cards</h2>
+<div class="proj-filters anim-fade">
+<button class="proj-filter-btn active" data-filter="all" onclick="filterProjects(this)">ALL</button>
+<button class="proj-filter-btn" data-filter="featured" onclick="filterProjects(this)">⭐ FEATURED</button>
+<button class="proj-filter-btn" data-filter="aiml" onclick="filterProjects(this)">AI/ML</button>
+<button class="proj-filter-btn" data-filter="data" onclick="filterProjects(this)">DATA SCIENCE</button>
+<button class="proj-filter-btn" data-filter="fullstack" onclick="filterProjects(this)">FULL STACK</button>
+</div>
+<div class="projects-grid" id="projects-grid">
+
+<!-- FEATURED -->
+<div class="proj-card anim-fade" data-cat="featured aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">⭐ FEATURED // RAG SYSTEM</div>
+<div class="proj-name">DocuQuery</div>
+<div class="proj-period">Production Project</div>
+<div class="proj-desc">RAG Document Intelligence System - Hybrid vector search with recursive splitting, Cohere reranking, and async SSE streaming for sub-2s query latency.</div>
+<div class="proj-stats">
+<span class="proj-stat">+30% Answer Precision</span>
+<span class="proj-stat">&lt;2s Latency</span>
+<span class="proj-stat">Hybrid Vector Search</span>
+</div>
+<div class="proj-stack">FastAPI · OpenAI · Pinecone · LangChain · React · Docker · AWS</div>
+</div>
+
+<div class="proj-card anim-fade" data-cat="featured fullstack">
+<div class="speed-lines"></div>
+<div class="proj-tag red">⭐ FEATURED // AGENTIC PLATFORM</div>
+<div class="proj-name">Share Cycle</div>
+<div class="proj-period">Production Project</div>
+<div class="proj-desc">Agentic Support &amp; Orchestration Platform - Built concept-to-production in 24 hours using an AI-native development workflow with full auth and data layer.</div>
+<div class="proj-stats">
+<span class="proj-stat">24hr Build-to-Prod</span>
+<span class="proj-stat">AI-Native Workflow</span>
+<span class="proj-stat">Full MVP + Auth</span>
+</div>
+<div class="proj-stack">Django REST · React Native · PostgreSQL · OpenAI · Auth0 · Redis</div>
+</div>
+
+<div class="proj-card gold anim-fade" data-cat="featured aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag gold">🏆 FEATURED // F1 PERSONAL</div>
+<div class="proj-name">F1 Race Prediction Model</div>
+<div class="proj-period">Personal Project</div>
+<div class="proj-desc">ML model predicting top-5 race finishers using lap delta, weather conditions, and historical race data. Ensemble approach with gradient boosting.</div>
+<div class="proj-stats">
+<span class="proj-stat">85% Accuracy</span>
+<span class="proj-stat">Top-5 Prediction</span>
+<span class="proj-stat">Lap Delta + Weather</span>
+</div>
+<div class="proj-stack">Random Forest · Gradient Boosting · Python · Pandas · Scikit-learn</div>
+</div>
+
+<!-- AI/ML PROJECTS -->
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - COMPUTER VISION + LLM</div>
+<div class="proj-name">Mood Sync</div>
+<div class="proj-period">Dec 2025 – Jan 2026</div>
+<ul class="proj-bullets-sm">
+<li>Real-time facial emotion recognition pipeline - <strong style="color:#fff">95% precision</strong> across 6 emotional classes</li>
+<li>Pinecone vector search with <strong style="color:#fff">0.9s average</strong> recommendation latency</li>
+<li>LLM reasoning layer - &gt;85% user-rated relevance in pilot testing</li>
+<li>30% CPU latency reduction via multithreading + frame skipping; 22–24 FPS live inference</li>
+</ul>
+<div class="proj-stack">Python · Pinecone · LLM · OpenCV · Multithreading</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="fullstack">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// FULL STACK - PRIVACY AI</div>
+<div class="proj-name">ShareCycle: Privacy-First Platform</div>
+<div class="proj-period">Nov 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>LLM-based urgency classification - <strong style="color:#fff">91% intent accuracy</strong></li>
+<li>Server-side PII redaction (Regex + spaCy) - <strong style="color:#fff">94% reduction</strong> in sensitive data exposure</li>
+<li>Mapbox SDK coarse geolocation masking within ~500m resolution</li>
+<li>Auth0 + JWT supporting 200+ secure sessions/day; async notifications −32% latency</li>
+</ul>
+<div class="proj-stack">Django REST · React Native · spaCy · Auth0 · Mapbox · Redis</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - GENERATIVE VISION</div>
+<div class="proj-name">VAE for Emoji Generation</div>
+<div class="proj-period">Jun – Jul 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Convolutional VAE in PyTorch on 12,000+ emoji images - <strong style="color:#fff">89% reconstruction fidelity</strong> (SSIM)</li>
+<li>Reparameterization trick enabling smooth latent interpolation across emotional dimensions</li>
+<li>27% reconstruction loss reduction via KL annealing; β-VAE improved separability by 22%</li>
+</ul>
+<div class="proj-stack">PyTorch · VAE · β-VAE · Convolutional Networks</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - CONTRASTIVE LEARNING</div>
+<div class="proj-name">Image-Caption Retrieval (SimCLR)</div>
+<div class="proj-period">Mar – May 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>SimCLR retrieval engine over <strong style="color:#fff">31,000 image-caption pairs</strong> - 68% Top-5 accuracy</li>
+<li>PCA dimensionality reduction 512→64 retaining 93% variance; t-SNE cluster visualization</li>
+<li>Streamlit demo with <strong style="color:#fff">1.2s average query latency</strong></li>
+</ul>
+<div class="proj-stack">SimCLR · PyTorch · PCA · t-SNE · Streamlit</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - NLP SUMMARIZATION</div>
+<div class="proj-name">Congressional Bill Summarization (BART)</div>
+<div class="proj-period">Apr 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Fine-tuned BART on <strong style="color:#fff">22,000+ congressional docs</strong> - ROUGE-L +11% over baseline</li>
+<li>18% hallucination reduction via preprocessing; ROUGE-2: 18.6 / ROUGE-L: 41.2</li>
+<li>Dynamic truncation + batching for docs exceeding 1,024-token limit</li>
+</ul>
+<div class="proj-stack">BART · HuggingFace · NLP · PyTorch</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - NLP MULTI-DOC</div>
+<div class="proj-name">Multi-News Summarization (BART)</div>
+<div class="proj-period">Apr 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Fine-tuned facebook/bart-base on Multi-News - <strong style="color:#fff">ROUGE-L 38.7</strong></li>
+<li>21% inference time reduction via beam-width tuning; Gradio app with 2.6s response</li>
+<li>Deployed reproducible pipeline via <strong style="color:#fff">Hugging Face Hub</strong></li>
+</ul>
+<div class="proj-stack">BART · Gradio · HuggingFace Hub · NLP</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - TIME SERIES</div>
+<div class="proj-name">Air Quality Prediction (LSTM)</div>
+<div class="proj-period">Mar 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>LSTM forecasting hourly pollutants - <strong style="color:#fff">RMSE −19%</strong> over linear regression</li>
+<li>Lag feature engineering +14% stability; R² improved 0.61 → <strong style="color:#fff">0.79</strong></li>
+<li>LSTM vs GRU comparison: 12% faster convergence observed in GRU</li>
+</ul>
+<div class="proj-stack">LSTM · GRU · PyTorch · Time Series · Pandas</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - DEEP LEARNING</div>
+<div class="proj-name">VGG &amp; ResNet from Scratch</div>
+<div class="proj-period">Feb 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>VGG: <strong style="color:#fff">87% test accuracy</strong> · ResNet: <strong style="color:#fff">90% test accuracy</strong> - no pretrained weights</li>
+<li>29% faster convergence via batch norm + LR scheduling; 18% overfitting reduction</li>
+<li>Grad-CAM validation: 88% of correct samples activated on correct regions</li>
+</ul>
+<div class="proj-stack">PyTorch · VGG · ResNet · Grad-CAM · CNN</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - REINFORCEMENT LEARNING</div>
+<div class="proj-name">RL Vacuum Cleaner Bot</div>
+<div class="proj-period">Nov 2024 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>6×6 grid-world with stochastic transitions - SARSA <strong style="color:#fff">24% faster convergence</strong> vs Q-Learning</li>
+<li>Double Q-Learning reduced overestimation bias by 17%</li>
+<li>Stable optimal policy learned within <strong style="color:#fff">450 training episodes</strong></li>
+</ul>
+<div class="proj-stack">SARSA · Q-Learning · Double Q-Learning · Python</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="aiml">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// AI/ML - COMPUTER VISION</div>
+<div class="proj-name">EMNIST Character Recognition (CNN)</div>
+<div class="proj-period">Oct 2024 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Custom CNN - <strong style="color:#fff">92.4% test accuracy</strong> on EMNIST Balanced</li>
+<li>+11% validation accuracy via augmentation + dropout; training loss −33% via LR scheduling</li>
+<li>ROC + confusion matrix analysis identified top 3 confusion clusters for architecture tuning</li>
+</ul>
+<div class="proj-stack">PyTorch · CNN · EMNIST · Data Augmentation</div>
+</div>
+
+<!-- DATA SCIENCE PROJECTS -->
+<div class="proj-card proj-card-sm anim-fade" data-cat="data">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// DATA - REAL ESTATE ML</div>
+<div class="proj-name">Real Estate Sales Prediction</div>
+<div class="proj-period">Feb 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Feature engineering on <strong style="color:#fff">1.09M+ transactions</strong> - 31% missing data reduction</li>
+<li>Gradient Boosting + XGBoost: R² <strong style="color:#fff">0.86</strong>, RMSE −17% vs baseline</li>
+<li>Bayesian hyperparameter optimization +9%; Tableau dashboards across 150+ neighborhoods</li>
+</ul>
+<div class="proj-stack">XGBoost · Gradient Boosting · Bayesian Opt · Tableau · Python</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="data">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// DATA - INFRASTRUCTURE</div>
+<div class="proj-name">Environmental Data Warehouse</div>
+<div class="proj-period">Mar – Apr 2025 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>Normalized schema: 10 relational tables for structured environmental analytics</li>
+<li>34% query performance improvement via indexing + EXPLAIN ANALYZE; stored procs −42% repetition</li>
+<li>Join-heavy query optimization: <strong style="color:#fff">2.3s → 1.4s</strong> execution time</li>
+</ul>
+<div class="proj-stack">PostgreSQL · SQL Optimization · Data Warehousing · Indexing</div>
+</div>
+
+<div class="proj-card proj-card-sm anim-fade" data-cat="data">
+<div class="speed-lines"></div>
+<div class="proj-tag red">// DATA - PRICING ANALYTICS</div>
+<div class="proj-name">Airbnb Price Prediction</div>
+<div class="proj-period">Sep – Nov 2024 · University at Buffalo</div>
+<ul class="proj-bullets-sm">
+<li>EDA on <strong style="color:#fff">48,000+ Airbnb listings</strong> - identified top 5 price-driving features</li>
+<li>Random Forest: +16% accuracy over linear baseline; MSE −21% via feature engineering</li>
+<li>Cross-validated R² of <strong style="color:#fff">0.77</strong> across folds</li>
+</ul>
+<div class="proj-stack">Random Forest · Feature Engineering · EDA · Python · Scikit-learn</div>
+</div>
+
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- SKILLS -->
+<section id="skills">
+<div class="sector-label anim-fade">// SECTOR 04</div>
+<h2 class="section-title anim-fade">Telemetry</h2>
+<div class="skills-grid">
+<div class="skill-group anim-fade">
+<div class="skill-group-title">⚡ Power Unit - Core Languages</div>
+<div class="skill-tags">
+<span class="skill-tag">Python</span><span class="skill-tag">TypeScript</span>
+<span class="skill-tag">JavaScript</span><span class="skill-tag">SQL</span>
+<span class="skill-tag">Go</span><span class="skill-tag">Java</span><span class="skill-tag">C++</span>
+</div>
+</div>
+<div class="skill-group anim-fade">
+<div class="skill-group-title">🌬 Aerodynamics - AI/ML Stack</div>
+<div class="skill-tags">
+<span class="skill-tag">LangGraph</span><span class="skill-tag">LangChain</span>
+<span class="skill-tag">RAG (Hybrid)</span><span class="skill-tag">Multi-Agent Systems</span>
+<span class="skill-tag">DSPy</span><span class="skill-tag">OpenAI API</span>
+<span class="skill-tag">Claude API</span><span class="skill-tag">Pinecone</span><span class="skill-tag">LanceDB</span>
+</div>
+</div>
+<div class="skill-group anim-fade">
+<div class="skill-group-title">🔩 Chassis - Frameworks</div>
+<div class="skill-tags">
+<span class="skill-tag">FastAPI</span><span class="skill-tag">Django</span>
+<span class="skill-tag">Flask</span><span class="skill-tag">React / Next.js 14</span>
+<span class="skill-tag">Node.js</span><span class="skill-tag">React Native</span>
+</div>
+</div>
+<div class="skill-group anim-fade">
+<div class="skill-group-title">🔌 Electronics - Infrastructure</div>
+<div class="skill-tags">
+<span class="skill-tag">AWS (Lambda/S3/EC2/ECS)</span>
+<span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span>
+<span class="skill-tag">Kafka</span><span class="skill-tag">Redis</span>
+<span class="skill-tag">PostgreSQL</span><span class="skill-tag">MongoDB</span>
+</div>
+</div>
+<div class="skill-group anim-fade" style="grid-column:1/-1">
+<div class="skill-group-title">🚀 DRS System - AI-Native Workflow</div>
+<div class="skill-tags">
+<span class="skill-tag">AI-Augmented PR Synthesis</span>
+<span class="skill-tag">Claude-Driven Refactoring</span>
+<span class="skill-tag">Cursor (Advanced)</span>
+<span class="skill-tag">LLM-Assisted Testing</span>
+</div>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- EDUCATION -->
+<section id="education">
+<div class="sector-label anim-fade">// SECTOR 05</div>
+<h2 class="section-title anim-fade">Driver Academy</h2>
+<div class="edu-card anim-fade">
+<div>
+<div class="edu-school">University at Buffalo, SUNY</div>
+<div class="edu-degree">MS Computer Science - AI Specialization</div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--gray);margin-top:8px">Aug 2024 – Dec 2025 · Buffalo, NY</div>
+</div>
+<div class="edu-meta">
+<div class="edu-gpa">3.87</div>
+<div style="font-size:10px;color:var(--gray);letter-spacing:1px">/ 4.0 GPA</div>
+</div>
+</div>
+<div class="edu-card anim-fade">
+<div>
+<div class="edu-school">JNTU Hyderabad</div>
+<div class="edu-degree">B.Tech Computer Science</div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--gray);margin-top:8px">Jul 2018 – Aug 2022 · Hyderabad, India</div>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+<div class="sector-label anim-fade">// SECTOR 06</div>
+<h2 class="section-title anim-fade">Homologation</h2>
+<div class="certs-grid">
+<div class="cert-card anim-fade">
+<div class="cert-icon">☁️</div>
+<div class="cert-name">Microsoft Certified: Azure Developer Associate</div>
+</div>
+<div class="cert-card anim-fade">
+<div class="cert-icon">🔷</div>
+<div class="cert-name">Microsoft Certified: Azure Fundamentals</div>
+</div>
+<div class="cert-card anim-fade">
+<div class="cert-icon">🟡</div>
+<div class="cert-name">AWS Certified Cloud Practitioner</div>
+</div>
+<div class="cert-card anim-fade" style="border-color:rgba(232,0,45,0.3)">
+<div class="cert-icon">📄</div>
+<div class="cert-name">Publication: Cognitive NLP Assistant for Post-Operative Care<br><a href="https://doi.org/10.26562/IRJCS.2021.V0806.001" target="_blank" style="color:var(--red);font-family:var(--font-mono);font-size:10px;word-break:break-all">doi.org/10.26562/IRJCS.2021.V0806.001</a></div>
+</div>
+</div>
+</section>
+<div class="section-divider"></div>
+<!-- CONTACT -->
+<section id="contact">
+<div class="checkered">🏁</div>
+<div class="sector-label" style="justify-content:center;display:block;text-align:center">// RACE CONTROL</div>
+<h2 class="section-title" style="text-align:center">Let's Connect</h2>
+<div class="contact-grid">
+<a href="mailto:geetamythri27@gmail.com" class="contact-link">
+<div class="contact-label">Email</div>
+<div class="contact-value">geetamythri27@gmail.com</div>
+</a>
+<a href="tel:7163194689" class="contact-link">
+<div class="contact-label">Phone</div>
+<div class="contact-value">(716) 319-4689</div>
+</a>
+<a href="https://linkedin.com/in/mythri-shivakumar" target="_blank" class="contact-link">
+<div class="contact-label">LinkedIn</div>
+<div class="contact-value">mythri-shivakumar</div>
+</a>
+<a href="https://github.com/MythriShivakumar" target="_blank" class="contact-link">
+<div class="contact-label">GitHub</div>
+<div class="contact-value">MythriShivakumar</div>
+</a>
+</div>
+<p style="font-family:var(--font-mono);font-size:10px;color:var(--gray);text-align:center;margin-top:60px;letter-spacing:2px">© 2026 MYTHRI SHIVAKUMAR // BUILT AT THE PIT WALL</p>
+</section>
+<!-- TEAM RADIO CHATBOT -->
+<!-- API KEY PLACEHOLDER - Enter your Google AI Studio API key in the modal at runtime (free at aistudio.google.com) -->
+<button id="team-radio-btn" onclick="openTeamRadio()" aria-label="Open Team Radio AI">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M6.3 6.3a8 8 0 0 0 0 11.4"/><path d="M17.7 6.3a8 8 0 0 1 0 11.4"/><path d="M3.5 3.5a14 14 0 0 0 0 17"/><path d="M20.5 3.5a14 14 0 0 1 0 17"/></svg>
+<div id="team-radio-label">TEAM RADIO</div>
+</button>
+<div id="chatbot-panel">
+<div class="chat-header">
+<div class="chat-header-title">🏁 TEAM RADIO - Pit Wall AI</div>
+<button class="chat-close" onclick="closeTeamRadio()">✕</button>
+</div>
+<div class="chat-messages" id="chat-messages">
+<div class="chat-msg ai">
+<div class="chat-msg-label pitwall">PIT WALL →</div>
+<div class="chat-msg-bubble">ARIA online. I have full telemetry on Mythri's career. What do you want to know?</div>
+</div>
+</div>
+<div class="chat-starters" id="chat-starters">
+<button class="chat-starter" onclick="sendStarter(this)">What AI systems has Mythri built?</button>
+<button class="chat-starter" onclick="sendStarter(this)">Is she available for hire?</button>
+<button class="chat-starter" onclick="sendStarter(this)">What's her strongest tech stack?</button>
+<button class="chat-starter" onclick="sendStarter(this)">Tell me about her RAG project</button>
+<button class="chat-starter" onclick="sendStarter(this)">What makes her different from other engineers?</button>
+</div>
+<div class="chat-input-row">
+<textarea id="chat-input" placeholder="Transmit a message..." rows="1" onkeydown="handleKey(event)"></textarea>
+<button id="chat-send" onclick="sendMessage()">TRANSMIT</button>
+</div>
+</div>
+<!-- API key is handled server-side via /api/chat -->
+<script>
+// ── LIGHTS OUT ──────────────────────────────────────────────────
+(function(){
+const lights=[document.getElementById('l1'),document.getElementById('l2'),document.getElementById('l3'),document.getElementById('l4'),document.getElementById('l5')];
+const overlay=document.getElementById('lights-out');
+let i=0;
+function lightOn(){if(i<lights.length){lights[i].classList.add('on');i++;setTimeout(lightOn,300);}else{setTimeout(()=>{lights.forEach(l=>l.classList.remove('on'));setTimeout(()=>{overlay.style.opacity='0';overlay.style.transition='opacity 0.5s';setTimeout(()=>{overlay.style.display='none';startCounters();},500);},200);},400);}}
+setTimeout(lightOn,300);
+})();
+// ── CURSOR ──────────────────────────────────────────────────────
+const cur=document.getElementById('cursor'),dot=document.getElementById('cursor-dot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function animCursor(){cx+=(mx-cx)*0.15;cy+=(my-cy)*0.15;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(animCursor);})();
+// ── TYPING HERO ─────────────────────────────────────────────────
+const titles=["Full Stack Engineer","AI/ML Engineer","Multi-Agent Systems Builder","LangGraph Architect"];
+let ti=0,ci=0,deleting=false;
+const typedEl=document.getElementById('typed-text');
+function typeLoop(){
+const word=titles[ti];
+if(!deleting&&ci<=word.length){typedEl.textContent=word.slice(0,ci++);setTimeout(typeLoop,ci>word.length?1800:80);}
+else if(deleting&&ci>=0){typedEl.textContent=word.slice(0,ci--);setTimeout(typeLoop,40);}
+else if(!deleting){deleting=true;setTimeout(typeLoop,200);}
+else{deleting=false;ti=(ti+1)%titles.length;setTimeout(typeLoop,200);}
+}
+setTimeout(typeLoop,2500);
+// ── STAT COUNTERS ────────────────────────────────────────────────
+function startCounters(){
+document.querySelectorAll('.stat-value').forEach(el=>{
+const target=parseFloat(el.dataset.target);
+const suffix=el.dataset.suffix||'';
+const display=el.dataset.display;
+const isGpa=!!display;
+let start=0,duration=1800,startTime=null;
+function step(ts){
+if(!startTime)startTime=ts;
+const progress=Math.min((ts-startTime)/duration,1);
+const eased=1-Math.pow(1-progress,3);
+const val=isGpa?(eased*(target/100)).toFixed(2):(Math.round(eased*target));
+el.textContent=isGpa?val+'/4.0':val+suffix;
+if(progress<1)requestAnimationFrame(step);
+}
+requestAnimationFrame(step);
+});
+}
+// ── SCROLL ANIMATIONS ───────────────────────────────────────────
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.anim-fade').forEach(el=>observer.observe(el));
+// ── NAV ACTIVE ──────────────────────────────────────────────────
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const navObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);if(a)a.classList.add('active');}});},{threshold:0.3});
+sections.forEach(s=>navObserver.observe(s));
+// ── NAV TOGGLE ──────────────────────────────────────────────────
+function toggleNav(){document.getElementById('nav-links').classList.toggle('open');}
+window.toggleNav=toggleNav;
+// ── CHATBOT STATE ───────────────────────────────────────────────
+// API key handled server-side via /api/chat
+let conversationHistory=[];
+const SYSTEM_PROMPT=`You are ARIA (Autonomous Resume Intelligence Assistant), the AI pit wall engineer for Mythri Shivakumar's portfolio. You have complete knowledge of Mythri's background, skills, experience, and projects. Answer questions as a knowledgeable, slightly witty F1-themed assistant. Be concise, precise, and impressive. Use light F1 metaphors occasionally but don't overdo it.
+
+KNOWLEDGE BASE:
+NAME: Mythri Shivakumar
+TITLE: Full Stack Engineer & AI/ML Engineer specializing in Multi-Agent Systems and LangGraph
+
+EXPERIENCE:
+1. Saccharo AI | Full Stack Engineer | March 2026-Present | New York, NY
+- Built multi-agent RFP intelligence system using LangGraph + Claude with DAG across 50+ sources, 95% reliability
+- React/Next.js dashboard with SSE + Zustand for real-time procurement data
+- Integrated Claude into CI/CD pipeline: automated PR synthesis, refactoring, edge-case detection => +40% sprint velocity
+- Context-aware prompt library + LLM-driven unit test generation => -4 days time-to-production
+
+2. University at Buffalo | Research Associate | Feb 2025-March 2026 | Buffalo, NY
+- Modernized COVIDHM simulation library: Claude 3.5 assisted R to Python migration => 42% faster runtime
+- Engineered autonomous tracing agents with LLM reasoning over graph data for quarantine decisions
+
+3. Infosys (Client: Apple) | Software Development Engineer | Aug 2022-Jul 2024 | Hyderabad, India
+- Financial reconciliation platform: migrated 250+ legacy scripts to Python framework, 100% data integrity
+- AI-driven matching engine with fuzzy logic => 40% reduction in MTTD
+- Rule-based validation layer => 70% less manual intervention
+- 99.9% uptime via Splunk/Grafana telemetry
+
+4. Freelance Software Consultant | Aug 2020-Aug 2022 | Hyderabad, India
+- 5+ production Full-Stack MVPs (React.js, Node.js) for global clients - 10K+ MAU
+- Technical writing reaching 50K+ readers on distributed systems
+
+PROJECTS:
+1. DocuQuery - RAG Document Intelligence System
+Stack: FastAPI, OpenAI, Pinecone, LangChain, React, Docker, AWS
+Stats: +30% answer precision, <2s query latency, Hybrid Vector Search
+Feature: Recursive character splitting + Cohere reranking + async SSE streaming
+
+2. Share Cycle - Agentic Support & Orchestration Platform
+Stack: Django REST, React Native, PostgreSQL, OpenAI, Auth0, Redis
+Stats: 24hr build-to-prod, AI-native workflow, Full MVP + Auth
+Feature: Built concept-to-production in 24 hours using AI-native dev workflow
+
+3. F1 Race Prediction Model - Personal Project
+Stack: Random Forest, Gradient Boosting, Python
+Stats: 85% accuracy, Top-5 finisher prediction, lap delta + weather features
+
+4. Mood Sync - AI Semantic Music Recommendation (Dec 2025-Jan 2026)
+95% facial emotion recognition precision across 6 classes, Pinecone vector search 0.9s latency, LLM reasoning >85% relevance, 30% CPU reduction via multithreading, 22-24 FPS live inference
+
+5. ShareCycle Privacy-First Agentic Support Platform (Nov 2025, University at Buffalo)
+LLM-based urgency classification 91% accuracy, server-side PII redaction (Regex+spaCy) 94% reduction, Mapbox coarse geolocation ~500m, Auth0+JWT 200+ sessions/day, async notifications -32% latency
+
+6. Variational Autoencoder (VAE) for Emoji Generation (Jun-Jul 2025, UB)
+Convolutional VAE in PyTorch on 12,000+ emoji images, 89% reconstruction fidelity (SSIM), reparameterization trick, 27% loss reduction via KL annealing, b-VAE +22% attribute separability
+
+7. Image-Caption Retrieval using SimCLR (Mar-May 2025, UB)
+SimCLR cosine similarity retrieval over 31,000 image-caption pairs, 68% Top-5 accuracy, PCA 512->64 retaining 93% variance, Streamlit demo 1.2s latency
+
+8. Congressional Bill Summarization BillSum+BART (Apr 2025, UB)
+Fine-tuned BART on 22,000+ congressional docs, ROUGE-L +11%, 18% hallucination reduction, ROUGE-2: 18.6, ROUGE-L: 41.2
+
+9. Environmental Data Warehouse PostgreSQL (Mar-Apr 2025, UB)
+10 relational tables, 34% query improvement via indexing, stored procedures -42% repetition, 2.3s->1.4s execution
+
+10. Multi-News Summarization BART (Apr 2025, UB)
+facebook/bart-base on Multi-News, ROUGE-L 38.7, 21% inference reduction, Gradio app 2.6s, deployed on HuggingFace Hub
+
+11. Air Quality Prediction LSTM (Mar 2025, UB)
+LSTM hourly pollutant forecasting, RMSE -19%, R2 0.61->0.79, LSTM vs GRU comparison 12% faster convergence
+
+12. Real Estate Sales Data Analysis and Prediction (Feb 2025, UB)
+1.09M+ transactions, Gradient Boosting+XGBoost R2 0.86 RMSE -17%, Bayesian hyperparameter optimization +9%, Tableau dashboards 150+ neighborhoods
+
+13. VGG and ResNet from Scratch (Feb 2025, UB)
+VGG 87% accuracy, ResNet 90% accuracy, no pretrained weights, 29% faster convergence, Grad-CAM validation 88%
+
+14. Airbnb Price Prediction (Sep-Nov 2024, UB)
+EDA on 48,000+ listings, Random Forest +16%, MSE -21%, cross-validated R2 0.77
+
+15. RL Vacuum Cleaner Bot (Nov 2024, UB)
+6x6 grid-world, SARSA 24% faster than Q-Learning, Double Q-Learning -17% bias, optimal policy in 450 episodes
+
+16. EMNIST Character Recognition CNN (Oct 2024, UB)
+Custom CNN 92.4% accuracy, +11% via augmentation+dropout, training loss -33% via LR scheduling
+
+SKILLS:
+Languages: Python, TypeScript, JavaScript, SQL, Go, Java, C++
+AI/ML: LangGraph, LangChain, RAG (Hybrid), Multi-Agent Systems, DSPy, OpenAI API, Claude API, Pinecone, LanceDB
+Frameworks: FastAPI, Django, Flask, React/Next.js 14, Node.js, React Native
+Infrastructure: AWS (Lambda/S3/EC2/ECS), Docker, Kubernetes, Kafka, Redis, PostgreSQL, MongoDB
+AI-Native: AI-Augmented PR Synthesis, Claude-Driven Refactoring, Cursor (Advanced), LLM-Assisted Testing
+
+EDUCATION:
+- MS Computer Science (AI Specialization), University at Buffalo SUNY, Aug 2024-Dec 2025, GPA: 3.87/4.0
+- B.Tech Computer Science, JNTU Hyderabad, Jul 2018-Aug 2022
+
+CERTIFICATIONS:
+- Microsoft Certified: Azure Developer Associate
+- Azure Fundamentals
+- AWS Cloud Practitioner
+- Publication: Cognitive NLP Assistant for Post-Operative Care (https://doi.org/10.26562/IRJCS.2021.V0806.001)
+
+CONTACT: Email: geetamythri27@gmail.com | Phone: (716) 319-4689 | LinkedIn: linkedin.com/in/mythri-shivakumar | GitHub: github.com/MythriShivakumar
+
+Rules:
+- Answer only questions about Mythri's professional background
+- For contact/hiring inquiries, provide her email: geetamythri27@gmail.com
+- Keep responses under 150 words unless a detailed technical explanation is needed
+- If asked something outside your knowledge base, say "That's outside my telemetry data - but feel free to reach out to Mythri directly."`;
+
+function openTeamRadio(){
+document.getElementById('chatbot-panel').style.display='flex';
+}
+function closeTeamRadio(){document.getElementById('chatbot-panel').style.display='none';}
+window.openTeamRadio=openTeamRadio;
+window.closeTeamRadio=closeTeamRadio;
+
+function appendMsg(role,text){
+const starters=document.getElementById('chat-starters');
+if(starters)starters.remove();
+const msgs=document.getElementById('chat-messages');
+const div=document.createElement('div');
+div.className='chat-msg '+(role==='user'?'user':'ai');
+div.innerHTML=`<div class="chat-msg-label ${role==='user'?'driver':'pitwall'}">${role==='user'?'DRIVER →':'PIT WALL →'}</div><div class="chat-msg-bubble">${text}</div>`;
+msgs.appendChild(div);
+msgs.scrollTop=msgs.scrollHeight;
+return div;
+}
+function showTyping(){
+const msgs=document.getElementById('chat-messages');
+const div=document.createElement('div');
+div.className='chat-msg ai';div.id='typing-indicator';
+div.innerHTML=`<div class="chat-msg-label pitwall">PIT WALL →</div><div class="chat-msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTyping(){const t=document.getElementById('typing-indicator');if(t)t.remove();}
+
+async function sendMessage(){
+const input=document.getElementById('chat-input');
+const text=input.value.trim();
+if(!text)return;
+input.value='';
+appendMsg('user',text);
+conversationHistory.push({role:'user',parts:[{text:text}]});
+showTyping();
+try{
+const resp=await fetch('/api/chat',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({
+system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
+contents:conversationHistory,
+generationConfig:{maxOutputTokens:1000,temperature:0.7}
+})
+});
+const data=await resp.json();
+removeTyping();
+if(data.candidates&&data.candidates[0]&&data.candidates[0].content){
+const reply=data.candidates[0].content.parts[0].text;
+conversationHistory.push({role:'model',parts:[{text:reply}]});
+appendMsg('ai',reply);
+}else if(data.error){
+appendMsg('ai','Comms error: '+(data.error.message||data.error||'Unknown error'));
+}else{appendMsg('ai','Signal lost. Check your API key and try again.');}
+}catch(e){removeTyping();appendMsg('ai','Comms failure - '+e.message);}
+}
+
+function sendStarter(btn){
+document.getElementById('chat-input').value=btn.textContent;
+sendMessage();
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+window.sendStarter=sendStarter;
+
+// ── PROJECT FILTERS ─────────────────────────────────────────────
+function filterProjects(btn){
+document.querySelectorAll('.proj-filter-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+const cat=btn.dataset.filter;
+document.querySelectorAll('#projects-grid .proj-card').forEach(card=>{
+const cats=card.dataset.cat||'';
+if(cat==='all'||cats.includes(cat)){card.classList.remove('hidden');}
+else{card.classList.add('hidden');}
+});
+}
+window.filterProjects=filterProjects;
+
+window.handleKey=handleKey;
+window.sendMessage=sendMessage;
+</script>
+</body>
+</html>
