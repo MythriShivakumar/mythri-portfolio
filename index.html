@@ -1226,11 +1226,29 @@
         <div class="exp-card anim-fade">
             <div class="exp-header">
                 <div>
+                    <div class="exp-company">University at Buffalo</div>
+                </div>
+                <div class="exp-meta">
+                    <div class="exp-role">Research Associate</div>
+                    <div class="exp-date">Feb 2025 – Present</div>
+                    <div class="exp-location">Buffalo, NY</div>
+                </div>
+            </div>
+            <ul class="exp-bullets">
+                <li>Modernized COVIDHM simulation library: Claude 3.5 assisted R→Python migration → <strong
+                        style="color:#fff">42% faster runtime</strong></li>
+                <li>Engineered autonomous tracing agents with LLM reasoning over graph data for quarantine decisions
+                </li>
+            </ul>
+        </div>
+        <div class="exp-card anim-fade">
+            <div class="exp-header">
+                <div>
                     <div class="exp-company">Saccharo AI</div>
                 </div>
                 <div class="exp-meta">
                     <div class="exp-role">Full Stack Engineer</div>
-                    <div class="exp-date">March 2026 – Present</div>
+                    <div class="exp-date">March 2026 – April 2026</div>
                     <div class="exp-location">New York, NY</div>
                 </div>
             </div>
@@ -1243,24 +1261,6 @@
                 </li>
                 <li>Context-aware prompt library + LLM-driven unit test generation → <strong style="color:#fff">-4 days
                         time-to-production</strong></li>
-            </ul>
-        </div>
-        <div class="exp-card anim-fade">
-            <div class="exp-header">
-                <div>
-                    <div class="exp-company">University at Buffalo</div>
-                </div>
-                <div class="exp-meta">
-                    <div class="exp-role">Research Associate</div>
-                    <div class="exp-date">Feb 2025 – March 2026</div>
-                    <div class="exp-location">Buffalo, NY</div>
-                </div>
-            </div>
-            <ul class="exp-bullets">
-                <li>Modernized COVIDHM simulation library: Claude 3.5 assisted R→Python migration → <strong
-                        style="color:#fff">42% faster runtime</strong></li>
-                <li>Engineered autonomous tracing agents with LLM reasoning over graph data for quarantine decisions
-                </li>
             </ul>
         </div>
         <div class="exp-card anim-fade">
@@ -1995,7 +1995,7 @@ Rules:
             const msgs = document.getElementById('chat-messages');
             const div = document.createElement('div');
             div.className = 'chat-msg ' + (role === 'user' ? 'user' : 'ai');
-            const rendered = role === 'ai' ? renderMarkdown(text) : text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const rendered = role === 'ai' ? renderMarkdown(text) : text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             div.innerHTML = `<div class="chat-msg-label ${role === 'user' ? 'driver' : 'pitwall'}">${role === 'user' ? 'DRIVER →' : 'PIT WALL →'}</div><div class="chat-msg-bubble">${rendered}</div>`;
             msgs.appendChild(div);
             msgs.scrollTop = msgs.scrollHeight;
